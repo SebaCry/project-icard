@@ -1,14 +1,25 @@
 import React from 'react'
 import { Routes, Route, BrowserRouter} from 'react-router-dom'
+import routes from './routes'
 
+import { map } from 'lodash'
 
 export function Navigation() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<h1>Hola mundo</h1>} />
+            {map(routes, (route, index) => (
+                <Route
+                    key={index}
+                    path={route.path}
+                    element={
+                        <route.layout>
+                            <route.component />
+                        </route.layout> 
+                    }
+                />
+            ))}
         </Routes>
     </BrowserRouter>
-        
     )
 }
